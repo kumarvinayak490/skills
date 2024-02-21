@@ -4,9 +4,9 @@ import { useContext } from "react";
 
 const CommentsContianer = () => {
   const { comments } = useContext(CommentContext);
+
   return (
     <div>
-      {" "}
       {comments.map((comment, i) => {
         return (
           <CommentCard

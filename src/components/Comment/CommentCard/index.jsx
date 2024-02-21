@@ -3,8 +3,8 @@ import { CommentContext } from "../../../context/commentContext";
 
 /* eslint-disable react/prop-types */
 const CommentCard = ({ replies, time, comment, id, img }) => {
-  console.log(id);
-  const { setComments } = useContext(CommentContext);
+  const { setComments, comments } = useContext(CommentContext);
+
   return (
     <div className="flex  w-full gap-4   ">
       <div className="w-1/12 h-14 border ">
@@ -25,29 +25,24 @@ const CommentCard = ({ replies, time, comment, id, img }) => {
               onClick={() => {
                 setComments((prev) => {
                   const newState = [...prev];
+                  let temp;
                   const comment = newState.filter((com) => {
-                    console.log(com.id, "id is ", id);
-                    return com.id == id;
+                    if (com.id === id) {
+                      temp = com;
+                    }
+                    return com.id !== id;
                   });
-                  comment.replies.push({
+                  console.log(temp);
+                  temp.replies.push({
                     id: 1,
                     name: "",
                     time: "",
                     img: "",
                     comment: "",
-                    replies: [
-                      {
-                        id: 1,
-                        name: "",
-                        time: "",
-                        img: "",
-                        comment: "",
-                        replies: [],
-                      },
-                    ],
+                    replies: [],
                   });
-                  console.log(comment, "replies");
-                  return [comment, ...newState];
+                  console.log(temp);
+                  return [temp, ...comment];
                 });
               }}
               className="text-gray-400"
